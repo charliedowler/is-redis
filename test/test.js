@@ -20,6 +20,8 @@ it('Should recognise redis is running - callback', function(done) {
 it('Should return running when run from bash', function(done) {
   exec('node ./bin/is-redis', function(err, stdout, stderr) {
     assert.equal(stdout.indexOf('Up') > -1, true);
-    done();
-  });
+  }).on('exit', function(status) {
+      assert.equal(status, 0);
+      done();
+    });
 });
